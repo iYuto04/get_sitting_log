@@ -1,6 +1,13 @@
-import slackweb
-from config import slack_cfg
+import os
+from slacker import Slacker
+from config import slack_token
 
-def Danpei():
-    slack = slackweb.Slack(url = slack_cfg['url'])
-    slack.notify(text="立て...立つんだYuto!")
+def post_graph():
+    token = slack_token
+    channel_name = 'sitting_log'
+    file_path = os.getcwd() + '/sitting_log.png'
+    slacker = Slacker(token)
+    slacker.files.upload(file_path,channels=[channel_name], title='1週間のデータです')
+
+if __name__ == '__main__':
+    post_graph()
